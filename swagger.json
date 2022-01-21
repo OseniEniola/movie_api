@@ -1,0 +1,386 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "STARWARS MOVIES",
+    "contact": {
+      "email": "oseni_eniola@yahoo.com"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Health",
+      "description": "health check"
+    },
+    {
+      "name": "Movies",
+      "description": "Starwars Movies"
+    },
+    {
+      "name": "Comments",
+      "description": "Movie Comments"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful"
+          }
+        }
+      }
+    },
+    "/films": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Get Movies",
+        "description": "",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "Offset",
+            "type": "integer",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "Limit",
+            "type": "integer",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Movie"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/films/characters/{movie}": {
+      "get": {
+        "tags": [
+          "Movies"
+        ],
+        "summary": "Find movie characters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "movie",
+            "in": "path",
+            "description": "Movie episode",
+            "required": true,
+            "type": "integer",
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Characters"
+            }
+          },
+          "400": {
+            "description": "Invalid Episode id"
+          },
+          "404": {
+            "description": "Movie does not exist"
+          }
+        }
+      }
+    },
+    "/comments/create/{episode}": {
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Add new comment",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "episode",
+            "in": "path",
+            "description": "Movie episode to comment on",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Comment",
+            "required": true,
+            "schema": {
+              "maxLength": 500,
+              "$ref": "#/definitions/content"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/comments/{episode}": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Returns all comments for an episode",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "episode",
+            "in": "path",
+            "description": "Movie episode",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Comment"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "localhost:3000",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify movies in your account",
+        "read:pets": "read your movies"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Movie": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "format": "Episode title"
+        },
+        "opening_crawl": {
+          "type": "string",
+          "format": "Opening Crawl"
+        },
+        "episode": {
+          "type": "integer",
+          "format": "int"
+        },
+        "release_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Comment"
+          }
+        },
+        "comment_count": {
+          "type": "integer",
+          "format": "int"
+        }
+      },
+      "xml": {
+        "name": "Movie"
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/components/schemas/uuid"
+        },
+        "name": {
+          "type": "string"
+        },
+        "episode": {
+          "type": "integer"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "xml": {
+        "name": "Comment"
+      }
+    },
+    "Characters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "height": {
+          "type": "string"
+        },
+        "mass": {
+          "type": "string"
+        },
+        "hair_color": {
+          "type": "string"
+        },
+        "skin_color": {
+          "type": "string"
+        },
+        "eye_color": {
+          "type": "string"
+        },
+        "birth_year": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "homeworld": {
+          "type": "string"
+        },
+        "films": {
+          "type": "string"
+        },
+        "species": {
+          "type": "string"
+        },
+        "vehicles": {
+          "type": "string"
+        },
+        "starships": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        },
+        "edited": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "Metadata": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "totalHeight": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/totalHeight"
+          }
+        }
+      }
+    },
+    "totalHeight": {
+      "type": "object",
+      "properties": {
+        "cm": {
+          "type": "integer"
+        },
+        "ft": {
+          "type": "string"
+        }
+      }
+    },
+    "content": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "Comment"
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "uuid": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+        "minLength": 36,
+        "maxLength": 36
+      }
+    }
+  }
+}
