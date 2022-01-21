@@ -7,7 +7,7 @@
       "email": "oseni_eniola@yahoo.com"
     }
   },
-  "host": "localhost:3000",
+  "host": "localhost:8000",
   "basePath": "/",
   "tags": [
     {
@@ -24,7 +24,7 @@
     }
   ],
   "schemes": [
-    "http"
+    "http","https"
   ],
   "paths": {
     "/health": {
@@ -193,22 +193,6 @@
           }
         }
       }
-    }
-  },
-  "securityDefinitions": {
-    "petstore_auth": {
-      "type": "oauth2",
-      "authorizationUrl": "localhost:3000",
-      "flow": "implicit",
-      "scopes": {
-        "write:pets": "modify movies in your account",
-        "read:pets": "read your movies"
-      }
-    },
-    "api_key": {
-      "type": "apiKey",
-      "name": "api_key",
-      "in": "header"
     }
   },
   "definitions": {
