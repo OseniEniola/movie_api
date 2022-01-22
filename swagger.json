@@ -12,7 +12,7 @@
       "url": "https://movie-api-eniola.herokuapp.com:8000"
     },
     {
-      "url": "https://127.0.0.1:8000"
+      "url": "https://movie-api-eniola.herokuapp.com:8000"
     }
   ],
   "host": "127.0.0.1:8000",
