@@ -9,13 +9,13 @@
   },
   "servers": [
     {
-      "url": "https://movie-api-eniola.herokuapp.com:8000"
+      "url": "127.0.0.1:8000"
     },
     {
       "url":"https://movie-api-eniola.herokuapp.com:8000"
     }
   ],
-  "host": "movie-api-eniola.herokuapp.com",
+  "host": "127.0.0.1:8000",
   "basePath": "/",
   "tags": [
     {
