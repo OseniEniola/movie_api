@@ -117,7 +117,7 @@
           {
             "name": "sort",
             "in": "query",
-            "description": " Sort Movies",
+            "description": " Sort by name, gender,height",
             "required": false,
             "type": "string",
             "items": {
@@ -127,7 +127,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Filter movie",
+            "description": "Filter by gender [male,female]",
             "required": false,
             "type": "string",
             "items": {
