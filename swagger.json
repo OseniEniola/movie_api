@@ -113,6 +113,26 @@
             "items": {
               "type": "string"
             }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": " Sort Movies",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Filter movie",
+            "required": false,
+            "type": "string",
+            "items": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
