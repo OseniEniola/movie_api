@@ -16,7 +16,7 @@
     }
   ],
   "host": "movie-api-eniola.herokuapp.com:8000",
-  "basePath": "https://movie-api-eniola.herokuapp.com:8000",
+  "basePath": "/",
   "tags": [
     {
       "name": "Health",
